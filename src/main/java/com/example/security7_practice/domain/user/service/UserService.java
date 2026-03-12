@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
         UserEntity userEntity = UserEntity.builder()
                 .username(dto.getUsername())
                 .password(encodedPassword)
-                .role(UserRole.USER)
+                .role(UserRole.ADMIN)
                 .build();
 
         // db 저장
