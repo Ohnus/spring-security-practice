@@ -21,6 +21,11 @@ spring:
     servlet:
       expose-request-attributes: true
 
+app:
+  security:
+    remember-me:
+      key: jdaj921jioe91jkasmi120diaklsdnml90adhu
+
 server:
   port: 8082
   servlet:

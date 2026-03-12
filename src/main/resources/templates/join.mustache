@@ -9,6 +9,7 @@ Join Page
 <form action="/user/join" method="post">
     <input type="text" name="username" required>
     <input type="password" name="password" required>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
     <button type="submit">join</button>
 </form>
 </body>

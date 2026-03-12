@@ -1,5 +1,6 @@
 package com.example.security7_practice.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Value("${app.security.remember-me.key}")
+    private String rememberMeKey;
+
     // 인터페이스 기반 설계를 위해 구현체 BBCryptPasswordEncoder가 아닌 인터페이스 PasswordEncoder를 빈으로 등록
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -22,8 +26,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        // 수많은 필터 중 CSRF 필터를 disable 시킴
-        http.csrf(csrf -> csrf.disable());
+        // CSRF 필터를 기본 enable 및 특정 경로는 disable
+        http.csrf(csrf -> csrf
+                .ignoringRequestMatchers("/logout"));
+
+        // remember me 설정
+        http.rememberMe(me -> me
+                .key(rememberMeKey)
+                .rememberMeParameter("remember-me")
+                .tokenValiditySeconds(14 * 24 * 60 * 60));
 
         // 접근 경로별 인가 설정
         http.authorizeHttpRequests(auth -> auth

@@ -9,6 +9,11 @@ Login Page
 <form action="/login" method="post">
     <input type="text" name="username" required>
     <input type="password" name="password" required>
+    <label>
+        <input type="checkbox" name="remember-me" />
+        로그인 유지
+    </label>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
     <button type="submit">login</button>
 </form>
 </body>
