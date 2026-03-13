@@ -32,6 +32,8 @@ server:
     encoding:
       charset: UTF-8
       force: true
+    session:
+      timeout: 1800
 
 logging:
   level:

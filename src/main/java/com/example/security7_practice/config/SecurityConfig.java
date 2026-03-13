@@ -49,6 +49,10 @@ public class SecurityConfig {
                 .rememberMeParameter("remember-me")
                 .tokenValiditySeconds(14 * 24 * 60 * 60));
 
+        // 세션 고정 공격 방지
+        http.sessionManagement(session -> session
+                .sessionFixation().changeSessionId());
+
         // 접근 경로별 인가 설정
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/").permitAll() // 인덱스 페이지 열어주기
